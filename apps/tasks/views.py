@@ -16,8 +16,10 @@ from ..users.serializers import GetUsersSerializer
 
 class TaskViewSet(ModelViewSet):
     queryset = Task.objects.all()
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
     serializer_class = TaskSerializer
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
     def get_serializer_class(self):
         if self.action == 'create':
@@ -32,15 +34,15 @@ class TaskViewSet(ModelViewSet):
         task.delete()
         return Response({"success": True, "message": "task deleted successfully"})
 
-    @action(methods=['GET'], detail=False, serializer_class=TasksInfoSerializer)
-    def my(self, request):
-        tasks = Task.objects.filter(owner=self.request.user)
-        return Response(TasksInfoSerializer(tasks, many=True).data)
-
-    @action(methods=['GET'], detail=False, serializer_class=TasksInfoSerializer)
-    def completed(self, request):
-        tasks = Task.objects.filter(status=True)
-        return Response(TasksInfoSerializer(tasks, many=True).data)
+    # @action(methods=['GET'], detail=False, serializer_class=TasksInfoSerializer)
+    # def search(self, request):
+    #     tasks = Task.objects.filter(owner=self.request.user)
+    #     return Response(TasksInfoSerializer(tasks, many=True).data)
+    #
+    # @action(methods=['GET'], detail=False, serializer_class=TasksInfoSerializer)
+    # def completed(self, request):
+    #     tasks = Task.objects.filter(status=True)
+    #     return Response(TasksInfoSerializer(tasks, many=True).data)
 
     @action(methods=['PATCH'], detail=True, serializer_class=TaskUpdateSerializer, url_path="update-owner")
     def update_owner(self, request, pk):
