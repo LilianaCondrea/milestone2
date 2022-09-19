@@ -7,9 +7,10 @@ from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Task, Comment
-from .serializers import TaskCreateSerializer, TaskSerializer, TasksInfoSerializer, \
-    TaskUpdateSerializer, TaskUpdateStatusSerializer, CommentsSerializer, TaskSearchSerializer, TaskItemSerializer
+from .models import Task, Comment, TimeLog
+from .serializers import TaskCreateSerializer, TaskSerializer, \
+    TaskUpdateSerializer, TaskUpdateStatusSerializer, CommentsSerializer, TaskSearchSerializer, TaskItemSerializer, \
+    TimelogSerializer
 from ..users.models import User
 from ..users.serializers import GetUsersSerializer
 
@@ -19,6 +20,7 @@ class TaskViewSet(ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
     serializer_class = TaskSerializer
+
     # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
     def get_serializer_class(self):
@@ -117,3 +119,21 @@ class TaskSearchView(generics.ListAPIView):
     queryset = Task.objects.all()
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
+
+
+class TimeLogViewSet(ModelViewSet):
+    queryset = TimeLog.objects.all()
+    serializer_class = TimelogSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return TaskCreateSerializer
+        return super().get_serializer_class()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    # @action(methods=['GET'], detail=False, serializer_class=TimelogSerializer)
+    # def timelogs(self, request):
+    #     timelogs = TimeLog.objects.filter(owner=self.request.user)
+    #     return Response(TimelogSerializer(timelogs, many=True).data)
