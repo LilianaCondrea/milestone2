@@ -1,4 +1,3 @@
-
 from rest_framework import serializers
 
 from .models import User
@@ -19,3 +18,16 @@ class GetUsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'full_name')
+
+
+class UserLogtime(serializers.ModelSerializer):
+    user_work_time = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email", "user_work_time")
+
+    def get_user_work_time(self, obj):
+        if obj.user_work_time:
+            return obj.user_work_time / 60
+        return obj.user_work_time

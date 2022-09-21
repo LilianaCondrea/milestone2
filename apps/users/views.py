@@ -1,6 +1,10 @@
-from apps.tasks.models import User
-from apps.users.serializers import GetUsersSerializer
-from apps.users.serializers import UserDetailSerializer
+from datetime import timedelta
+
+from .models import User
+from .serializers import GetUsersSerializer, UserLogtime
+from .serializers import UserDetailSerializer
+from django.db.models import Sum, F, Q
+from django.utils import timezone
 from drf_util.decorators import serialize_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import GenericAPIView
@@ -37,3 +41,16 @@ class UsersListView(APIView):
         users = User.objects.all()
         serializer = GetUsersSerializer(users, many=True)
         return Response(serializer.data)
+
+
+class UserLogtimeView(GenericAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserLogtime
+
+    def get(self, request):
+        users = User.objects.filter(email=self.request.user).annotate(
+            user_work_time=Sum(F('timelog__end_time') - F('timelog__start_time'),
+                               filter=Q(timelog__end_time__gte=timezone.now() - timedelta(days=30))
+                               )
+        )
+        return Response(UserLogtime().data)

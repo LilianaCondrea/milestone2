@@ -1,12 +1,20 @@
 from rest_framework import serializers
 
 from .models import Task, Comment
+from ..timelogs.serializers import TimeLogSerializer
 
 
 class TaskSerializer(serializers.ModelSerializer):
+    work_time = serializers.SerializerMethodField()
+
     class Meta:
         model = Task
         fields = ('id', 'title', 'description', 'status', 'owner')
+
+    def get_work_time(self, obj):
+        if obj.work_time:
+            return obj.work_time / 60
+        return obj.work_time
 
 
 class TaskSearchSerializer(serializers.ModelSerializer):
@@ -55,3 +63,10 @@ class TaskItemSerializer(serializers.ModelSerializer):
         model = Task
         fields = '__all__'
 
+
+class TaskItemLogsSerializer(serializers.ModelSerializer):
+    timelog_list = TimeLogSerializer(source='timelog_set', read_only=True, many=True)
+
+    class Meta:
+        model = Task
+        fields = '__all__'

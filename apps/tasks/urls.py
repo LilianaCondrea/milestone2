@@ -11,5 +11,7 @@ urlpatterns = router.urls
 urlpatterns = [
                   path('users/', UserListView.as_view(), name='users-list'),
                   # path('tasks/search/', TaskSearchView.as_view(), name='task-search'),
+                  path('user/logtime/', UserLogtimeView.as_view(), name='user_logtime'),
                   path('tasks/<int:pk>/comments/', TaskItemView.as_view(), name='task-comments'),
+                  path('tasks/<int:pk>/logs/', TaskItemLogsView.as_view(), name='task-logs'),
               ] + router.urls
