@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Task, Comment, TimeLog
+from .models import Task, Comment
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -55,20 +55,3 @@ class TaskItemSerializer(serializers.ModelSerializer):
         model = Task
         fields = '__all__'
 
-
-class TimelogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TimeLog
-        fields = ("start_timer", "end_timer", "task")
-
-
-class TimelogStartTimerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TimeLog
-        fields = ("task",)
-
-
-class TimelogEndTimerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TimeLog
-        fields = ("task",)

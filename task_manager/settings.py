@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'apps.users',
     'apps.tasks',
+    'apps.timelogs',
     'apps.common',
     'django.contrib.admin',
     'django.contrib.auth',
