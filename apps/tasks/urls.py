@@ -1,10 +1,13 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import CommentsViewSet, TaskViewSet, UserListView, TaskSearchView, TaskItemView
+from .views import CommentsViewSet, TaskViewSet, UserListView, TaskSearchView, TaskItemView, TaskItemLogsView
+from ..timelogs.views import TimeLogViewSet
+from ..users.views import UserLogtimeView
 
 router = DefaultRouter()
 router.register(r'tasks', TaskViewSet, basename='Tasks')
+router.register(r'timelogs', TimeLogViewSet, basename='timelogs')
 router.register(r'comments', CommentsViewSet, basename='Comments')
 urlpatterns = router.urls
 

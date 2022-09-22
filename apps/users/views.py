@@ -49,8 +49,8 @@ class UserLogtimeView(GenericAPIView):
 
     def get(self, request):
         users = User.objects.filter(email=self.request.user).annotate(
-            user_work_time=Sum(F('timelog__end_time') - F('timelog__start_time'),
-                               filter=Q(timelog__end_time__gte=timezone.now() - timedelta(days=30))
+            user_work_time=Sum(F('timelog__end_timer') - F('timelog__start_timer'),
+                               filter=Q(timelog__end_timer__gte=timezone.now() - timedelta(days=30))
                                )
         )
         return Response(UserLogtime().data)

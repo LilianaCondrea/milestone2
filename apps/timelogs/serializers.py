@@ -6,7 +6,7 @@ from .models import TimeLog
 class TimeLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeLog
-        fields = ('start_timer', 'end_timer', 'task')
+        exclude = ("owner",)
 
 
 class TimeLogStartTimerSerializer(serializers.ModelSerializer):

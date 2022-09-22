@@ -1,6 +1,5 @@
-from datetime import timezone, timedelta
-
-import django_filters
+import datetime
+from django.utils import timezone
 from django.conf.global_settings import DEFAULT_FROM_EMAIL
 from django.core.mail import send_mail
 from django.db.models import Sum, F
@@ -21,7 +20,7 @@ from ..users.serializers import GetUsersSerializer
 
 
 class TaskViewSet(ModelViewSet):
-    queryset = Task.objects.annotate(work_time=Sum(F('timelog__end_time') - F('timelog__start_time')))
+    queryset = Task.objects.annotate(work_time=Sum(F('timelog__end_timer') - F('timelog__start_timer')))
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
     serializer_class = TaskSerializer
@@ -42,7 +41,7 @@ class TaskViewSet(ModelViewSet):
         return Response({"success": True, "message": "task deleted successfully"})
 
     def list(self, request, *args, **kwargs):
-        tasks = Task.objects.annotate(work_time=Sum(F('timelog__end_time') - F('timelog__start_time')))
+        tasks = Task.objects.annotate(work_time=Sum(F('timelog__end_timer') - F('timelog__start_timer')))
         return Response(TaskSerializer(tasks, many=True).data)
 
     # @action(methods=['GET'], detail=False, serializer_class=TasksInfoSerializer)
@@ -59,9 +58,9 @@ class TaskViewSet(ModelViewSet):
     @action(methods=['GET'], detail=False, serializer_class=TaskSerializer, url_path='top-20')
     def top_20(self, request):
         tasks = Task.objects.filter(
-            timelog__end_time__gte=timezone.now() - timedelta(days=30)
+            timelog__end_timer__gte=timezone.now() - datetime.timedelta(days=30)
         ).annotate(
-            work_time=Sum(F('timelog__end_time') - F('timelog__start_time'))
+            work_time=Sum(F('timelog__end_timer') - F('timelog__start_timer'))
         ).order_by('-work_time')[:20]
         return Response(TaskSerializer(tasks, many=True).data)
 

@@ -9,7 +9,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('id', 'title', 'description', 'status', 'owner')
+        fields = ('id', 'title', 'description', 'status', 'owner', 'work_time')
 
     def get_work_time(self, obj):
         if obj.work_time:

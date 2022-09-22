@@ -30,17 +30,17 @@ class TimeLogViewSet(ModelViewSet):
         serializer = TimeLogStartTimerSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         current_time = timezone.now()
-        serializer.save(start_time=current_time, owner=self.request.user)
+        serializer.save(start_timer=current_time, owner=self.request.user)
         return Response({"success": True, "message": "timer started"})
 
     @action(methods=['post'], detail=False, serializer_class=TimeLogEndTimerSerializer)
     def stop(self, request):
-        if TimeLog.objects.filter(end_time__isnull=True):
-            last_timelog_list = TimeLog.objects.filter(end_time__isnull=True).order_by('start_time').first()
+        if TimeLog.objects.filter(end_timer__isnull=True):
+            last_timelog_list = TimeLog.objects.filter(end_timer__isnull=True).order_by('start_timer').first()
             last_timelog = get_object_or_404(TimeLog.objects.filter(pk=last_timelog_list.pk))
             serializer = TimeLogEndTimerSerializer(instance=last_timelog, data=request.data)
             serializer.is_valid(raise_exception=True)
             current_time = timezone.now()
-            serializer.save(end_time=current_time, owner=self.request.user)
+            serializer.save(end_timer=current_time, owner=self.request.user)
             return Response({"success": True, "message": "timer stopped"})
         return Response({"success": False, "message": "there isn't started log for this task id"})
