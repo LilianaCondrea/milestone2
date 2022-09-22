@@ -9,7 +9,7 @@ router = DefaultRouter()
 router.register(r'tasks', TaskViewSet, basename='Tasks')
 router.register(r'timelogs', TimeLogViewSet, basename='timelogs')
 router.register(r'comments', CommentsViewSet, basename='Comments')
-urlpatterns = router.urls
+# urlpatterns = router.urls
 
 urlpatterns = [
                   path('users/', UserListView.as_view(), name='users-list'),

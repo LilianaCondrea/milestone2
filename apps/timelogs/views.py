@@ -20,10 +20,10 @@ class TimeLogViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    @action(methods=['GET'], detail=False, serializer_class=TimeLogSerializer)
-    def my(self, request):
-        timelogs = TimeLog.objects.filter(owner=self.request.user)
-        return Response(TimeLogSerializer(timelogs, many=True).data)
+    # @action(methods=['GET'], detail=False, serializer_class=TimeLogSerializer)
+    # def my(self, request):
+    #     timelogs = TimeLog.objects.filter(owner=self.request.user)
+    #     return Response(TimeLogSerializer(timelogs, many=True).data)
 
     @action(methods=['post'], detail=False, serializer_class=TimeLogStartTimerSerializer)
     def start(self, request):
