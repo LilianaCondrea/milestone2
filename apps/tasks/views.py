@@ -44,7 +44,7 @@ class TaskViewSet(ModelViewSet):
         tasks = Task.objects.annotate(work_time=Sum(F('timelog__end_timer') - F('timelog__start_timer')))
         return Response(TaskSerializer(tasks, many=True).data)
 
-    @method_decorator(cache_page(60))
+    @method_decorator(cache_page(1))
     @action(methods=['GET'], detail=False, serializer_class=TaskSerializer, url_path='top-20')
     def top_20(self, request):
         tasks = Task.objects.filter(

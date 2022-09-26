@@ -43,14 +43,14 @@ class UsersListView(APIView):
         return Response(serializer.data)
 
 
-class UserLogtimeView(GenericAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserLogtime
-
-    def get(self, request):
-        users = User.objects.filter(email=self.request.user).annotate(
-            user_work_time=Sum(F('timelog__end_timer') - F('timelog__start_timer'),
-                               filter=Q(timelog__end_timer__gte=timezone.now() - timedelta(days=30))
-                               )
-        )
-        return Response(UserLogtime().data)
+# class UserLogtimeView(GenericAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserLogtime
+#
+#     def get(self, request):
+#         users = User.objects.filter(email=self.request.user).annotate(
+#             user_work_time=Sum(F('timelog__end_timer') - F('timelog__start_timer'),
+#                                filter=Q(timelog__end_timer__gte=timezone.now() - timedelta(days=30))
+#                                )
+#         )
+#         return Response(UserLogtime().data)

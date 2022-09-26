@@ -10,7 +10,7 @@ class TestCommon(TestCase):
     def setUp(self) -> None:
         self.client = APIClient()
         # check data in fixture json file
-        self.test_user1 = User.objects.get(email="user1@email.com")
+        self.test_user1 = User.objects.get(email="condrealili12@gmail.com")
 
     def test_health_view(self):
         response = self.client.get(reverse('health_view'), )
