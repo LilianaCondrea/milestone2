@@ -6,7 +6,7 @@ from .models import User
 
 faker = Faker()
 
-
+# User endpoints unit tests
 class TestUser(APITestCase):
     queryset = User.objects.all()
 
