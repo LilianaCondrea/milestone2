@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework_swagger',
+    'rest_framework',
+    'rest_framework.test',
     'drf_yasg',
     'docker',
     'django_extensions',
@@ -51,7 +53,7 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-package=' + ','.join([app + '.views' for app in INSTALLED_APPS if app.startswith('apps.')]),
 ]
-
+DJANGO_SETTINGS_MODULE = 'task_manager.settings'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

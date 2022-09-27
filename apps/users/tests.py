@@ -1,7 +1,7 @@
 from django.urls import reverse
-from rest_framework.test import APITestCase
-from faker import Faker
 
+from faker import Faker
+from rest_framework.test import APITestCase
 from .models import User
 
 faker = Faker()
@@ -22,7 +22,7 @@ class TestUser(APITestCase):
             "email": faker.email(),
             "password": faker.password(),
         }
-        response = self.client.post(reverse('token_register'), data=fake_data, format='json')
+        response = self.client.post(reverse('register'), data=fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
     def test_auth(self):
