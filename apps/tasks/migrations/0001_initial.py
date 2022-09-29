@@ -21,7 +21,8 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(db_index=True, max_length=100)),
                 ('description', models.TextField()),
                 ('status', models.BooleanField(db_index=True, default=False)),
-                ('owner', models.ForeignKey(db_constraint=False, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('owner', models.ForeignKey(db_constraint=False, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                            to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
@@ -29,7 +30,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('text', models.TextField()),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL)),
+                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments',
+                                            to=settings.AUTH_USER_MODEL)),
                 ('task', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tasks.task')),
             ],
         ),
