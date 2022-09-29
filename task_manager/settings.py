@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework.authtoken',
     'django_nose',
+    'jsonschema',
 ]
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
@@ -90,10 +91,10 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': postgres,
-        'USER': postgres,
-        'PASSWORD': postgres,
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'db',
         'PORT': 5432,
     }

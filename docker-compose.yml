@@ -8,9 +8,9 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
 
@@ -26,6 +26,17 @@ services:
       - "8080:80"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+
+  pghero:
+    image: ankane/pghero
+    ports:
+      - "8090:8090"
+    expose:
+      - "8090"
+    environment:
+      DATABASE_URL: postgres://postgres:ebsintegrator2022@db:5432/postgres
+    depends_on:
+      - db
 
 
   web:
