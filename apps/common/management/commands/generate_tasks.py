@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         count = 0
-        for _ in range(50):
+        for _ in range(100):
             task = Task.objects.create(
                 title=faker.unique.name(),
                 description=faker.text(),

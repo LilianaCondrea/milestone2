@@ -55,7 +55,7 @@ class TaskViewSet(ModelViewSet):
         )
         return Response(TaskSerializer(tasks, many=True).data)
 
-    @method_decorator(cache_page(1))
+    @method_decorator(cache_page(60))
     @action(methods=['GET'], detail=False, serializer_class=TaskSerializer, url_path='top-20')
     def top_20(self, request):
         """TaskViewSet"""

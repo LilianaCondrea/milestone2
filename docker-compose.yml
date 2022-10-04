@@ -30,11 +30,9 @@ services:
   pghero:
     image: ankane/pghero
     ports:
-      - "8090:8090"
-    expose:
-      - "8090"
+      - "8010:8080"
     environment:
-      DATABASE_URL: postgres://postgres:ebsintegrator2022@db:5432/postgres
+      DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
     depends_on:
       - db
 
@@ -47,7 +45,19 @@ services:
     ports:
       - "8000:8000"
     depends_on:
+      - redis
       - db
+
+  redis:
+    image: "redis:alpine"
+    restart: always
+    volumes:
+        - ./redis.conf:/usr/local/etc/redis/redis.conf # feel free to omit this line if you want to stick with the default config
+        - "redis:/data"
+    ports:
+      - "6379:6379"
+
 volumes:
     db-data:
     pgadmin-data:
+    redis: {}
