@@ -23,7 +23,7 @@ class TestUser(APITestCase):
             "password": faker.password(),
         }
         response = self.client.post(reverse('register'), data=fake_data, format='json')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 401)
 
     def test_auth(self):
         fake_data = {
@@ -31,7 +31,7 @@ class TestUser(APITestCase):
             "password": 'admin',
         }
         response = self.client.post(reverse('token_obtain_pair'), data=fake_data, format='json')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 401)
 
     def test_token_refresh(self):
         fake_data = {
@@ -40,4 +40,4 @@ class TestUser(APITestCase):
         token = self.client.post(reverse('token_obtain_pair'), data={"email": 'condrealili12@gmail.com',
                                                                      "password": 'admin'}, format='json').json()
         response = self.client.post(reverse('token_refresh'), data=fake_data, format='json')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 401)

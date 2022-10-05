@@ -84,3 +84,6 @@ users==1.0.dev0
 varname==0.9.0
 websocket-client==0.59.0
 wrapt==1.14.1
+pytest==3.4.2
+pytest-cov==2.5.1
+pytest-dependency==0.3.2

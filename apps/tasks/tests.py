@@ -30,53 +30,53 @@ class TestTask(APITestCase):
 
     def test_get(self):
         """TestTask"""
-        response = self.client.get(reverse('tasks_list'),
+        response = self.client.get(reverse('Tasks-list'),
                                    params=(title_random,))
         self.assertEqual(response.status_code, 200)
 
     def test_create(self):
         """TestTask"""
-        response = self.client.post(reverse('tasks_list'),
+        response = self.client.post(reverse('Tasks-list'),
                                     data=task_fake_data, format='json')
         self.assertEqual(response.status_code, 201)
 
     def test_top_20(self):
         """TestTask"""
-        response = self.client.get(reverse('tasks_top_20'),
+        response = self.client.get(reverse('Tasks-top-20'),
                                    params=(title_random,))
         self.assertEqual(response.status_code, 200)
 
     def test_get_by_pk(self):
         """TestTask"""
-        response = self.client.get(reverse('tasks_detail',
+        response = self.client.get(reverse('Tasks-detail',
                                            args=(id_random,)))
         self.assertEqual(response.status_code, 200)
 
     def test_update(self):
         """TestTask"""
-        response = self.client.put(reverse('tasks_detail', args=(id_random,)),
+        response = self.client.put(reverse('Tasks-detail', args=(id_random,)),
                                    data=task_fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
     def test_patch(self):
         """TestTask"""
-        response = self.client.patch(reverse('tasks_detail', args=(id_random,)),
+        response = self.client.patch(reverse('Tasks-detail', args=(id_random,)),
                                      data=task_fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
     def test_delete(self):
         """TestTask"""
-        response = self.client.delete(reverse('tasks_detail', args=(id_random,)))
+        response = self.client.delete(reverse('Tasks-detail', args=(id_random,)))
         self.assertEqual(response.status_code, 200)
 
     def test_get_comments(self):
         """TestTask"""
-        response = self.client.get(reverse('tasks_comments_list', args=(id_random,)))
+        response = self.client.get(reverse('task-comments', args=(id_random,)))
         self.assertEqual(response.status_code, 200)
 
     def test_get_timelogs(self):
         """TestTask"""
-        response = self.client.get(reverse('tasks_logs_list', args=(id_random,)))
+        response = self.client.get(reverse('task-logs', args=(id_random,)))
         self.assertEqual(response.status_code, 200)
 
     def test_update_owner(self):
@@ -84,7 +84,7 @@ class TestTask(APITestCase):
         fake_data = {
             "owner": random.choice(User.objects.all()).id,
         }
-        response = self.client.patch(reverse('tasks_update_owner', args=(id_random,)),
+        response = self.client.patch(reverse('Tasks-update-owner', args=(id_random,)),
                                      data=fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
@@ -93,7 +93,7 @@ class TestTask(APITestCase):
         fake_data = {
             "status": faker.boolean(),
         }
-        response = self.client.patch(reverse('tasks_update_status', args=(id_random,)),
+        response = self.client.patch(reverse('Tasks-update-status', args=(id_random,)),
                                      data=fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
@@ -121,32 +121,32 @@ class TestComment(APITestCase):
 
     def test_get(self):
         """TestComment"""
-        response = self.client.get(reverse('comments_list'))
+        response = self.client.get(reverse('Comments-list'))
         self.assertEqual(response.status_code, 200)
 
     def test_create(self):
         """TestComment"""
-        response = self.client.post(reverse('comments_list'), data=comment_fake_data, format='json')
+        response = self.client.post(reverse('Comments-list'), data=comment_fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
     def test_get_by_pk(self):
         """TestComment"""
-        response = self.client.get(reverse('comments_detail', args=(random_id,)))
+        response = self.client.get(reverse('Comments-detail', args=(random_id,)))
         self.assertEqual(response.status_code, 200)
 
     def test_put(self):
         """TestComment"""
-        response = self.client.put(reverse('comments_detail', args=(random_id,)),
+        response = self.client.put(reverse('Comments-detail', args=(random_id,)),
                                    data=comment_fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
     def test_update(self):
         """TestComment"""
-        response = self.client.patch(reverse('comments_detail', args=(random_id,)),
+        response = self.client.patch(reverse('Comments-detail', args=(random_id,)),
                                      data=comment_fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
     def test_delete(self):
         """TestComment"""
-        self.client.delete(reverse('comments_detail', args=(random_id,)))
+        self.client.delete(reverse('Comments-detail', args=(random_id,)))
         self.assertEqual(self.queryset.filter(pk=random_id).count(), 0)

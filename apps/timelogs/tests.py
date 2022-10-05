@@ -26,25 +26,25 @@ class TestTimeLog(APITestCase):
         self.client.force_authenticate(self.user)
 
     def test_get(self):
-        response = self.client.get(reverse('timelogs_list'))
+        response = self.client.get(reverse('timelogs-list'))
         self.assertEqual(response.status_code, 200)
 
     def test_create(self):
-        response = self.client.post(reverse('timelogs_list'), data=timelog_fake_data, format='json')
+        response = self.client.post(reverse('timelogs-list'), data=timelog_fake_data, format='json')
         self.assertEqual(response.status_code, 201)
 
     def test_start_timer(self):
         fake_data = {
             "task": random.choice(Task.objects.all()).id
         }
-        response = self.client.post(reverse('timelogs_start'), data=fake_data, format='json')
+        response = self.client.post(reverse('timelogs-start'), data=fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
     def test_end_timer(self):
         fake_data = {
             "task": random.choice(Task.objects.all()).id
         }
-        response = self.client.post(reverse('timelogs_stop'), data=fake_data, format='json')
+        response = self.client.post(reverse('timelogs-stop'), data=fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
     def test_get_by_pk(self):

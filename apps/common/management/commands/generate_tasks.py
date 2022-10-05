@@ -17,10 +17,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         count = 0
-        for _ in range(100):
+        for _ in range(250):
             task = Task.objects.create(
-                title=faker.unique.name(),
-                description=faker.text(),
+                title=faker.unique.first_name(),
+                description=faker.name(),
                 status=faker.boolean(),
                 owner=random.choice(User.objects.all())
             )

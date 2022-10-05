@@ -1,0 +1,16 @@
+Name                           Stmts   Miss  Cover
+--------------------------------------------------
+apps/tasks/serializers.py         47      3    94%
+apps/tasks/tests.py               78      3    96%
+apps/tasks/urls.py                 9      0   100%
+apps/tasks/views.py              108     52    52%
+apps/timelogs/serializers.py      14      0   100%
+apps/timelogs/tests.py            41      4    90%
+apps/timelogs/views.py            34     18    47%
+apps/users/serializers.py         22      3    86%
+apps/users/tests.py               23      0   100%
+apps/users/urls.py                 4      0   100%
+apps/users/views.py               27      9    67%
+task_manager/urls.py               8      0   100%
+--------------------------------------------------
+TOTAL                            415     92    78%

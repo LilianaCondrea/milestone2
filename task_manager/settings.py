@@ -51,7 +51,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
     '--with-coverage',
-    '--cover-package=' + ','.join([app + '.views' for app in INSTALLED_APPS if app.startswith('apps.')]),
+    # '--cover-package=' + ','.join([app + '.views' for app in INSTALLED_APPS if app.startswith('apps.')]),
 ]
 DJANGO_SETTINGS_MODULE = 'task_manager.settings'
 MIDDLEWARE = [
@@ -124,7 +124,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 STATIC_URL = '/static/'
 

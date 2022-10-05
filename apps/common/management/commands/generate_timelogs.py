@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         count = 0
-        for _ in range(50):
+        for _ in range(1000):
             random_task = random.choice(Task.objects.all())
             timelog = TimeLog.objects.create(
                 start_timer=faker.past_datetime(),
@@ -27,5 +27,5 @@ class Command(BaseCommand):
                 owner=random_task.owner
             )
             count += 1
-            print('TimeLog for ' + str(timelog.task) + ' generated:' + str(count))
+            # print('TimeLog for ' + str(timelog.task) + ' generated:' + str(count))
             print('were generated ' + str(count) + ' timelogs')
