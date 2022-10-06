@@ -186,8 +186,8 @@ CORS_ALLOW_HEADERS = (
 )
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
-# EMAIL_HOST_USER = 'condrealili12@gmail.com'
-# EMAIL_HOST_PASSWORD = 'abkltitwuguesqla'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'condrealili12@gmail.com'
+EMAIL_HOST_PASSWORD = 'tqbjljzwyvqvtjee'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

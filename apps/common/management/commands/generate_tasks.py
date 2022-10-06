@@ -8,8 +8,6 @@ from ....timelogs.models import TimeLog
 from ....users.models import User
 
 
-
-
 class Command(BaseCommand):
     help = 'Generate tasks'
 
@@ -29,10 +27,10 @@ class Command(BaseCommand):
             task.save()
 
             timelog = TimeLog.objects.create(
-                    start_timer=fake.past_datetime(),
-                    end_timer=fake.future_datetime(),
-                    task=task,
-                    owner=owner
+                start_timer=fake.past_datetime(),
+                end_timer=fake.future_datetime(),
+                task=task,
+                owner=owner
             )
             timelog.save()
             # count += 1
