@@ -64,6 +64,10 @@ class TestTask(APITestCase):
                                      data=task_fake_data, format='json')
         self.assertEqual(response.status_code, 200)
 
+    def test_get_my_tasks(self):
+        response = self.client.get(reverse('Tasks-my-tasks'))
+        self.assertEqual(response.status_code, 200)
+
     def test_delete(self):
         """TestTask"""
         response = self.client.delete(reverse('Tasks-detail', args=(id_random,)))

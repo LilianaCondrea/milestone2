@@ -15,7 +15,7 @@ from .models import Task, Comment
 from .serializers import TaskCreateSerializer, TaskSerializer, \
     TaskUpdateSerializer, TaskUpdateStatusSerializer, CommentsSerializer, \
     TaskSearchSerializer, TaskItemSerializer, \
-    TaskItemLogsSerializer
+    TaskItemLogsSerializer, TasksInfoSerializer
 from ..users.models import User
 from ..users.serializers import GetUsersSerializer
 
@@ -41,7 +41,12 @@ class TaskViewSet(ModelViewSet):
         """TaskViewSet"""
         serializer.save(owner=self.request.user, status=False)
 
-    def destroy(self, request, *args, **kwargs):
+    @action(methods=['GET'], detail=False, serializer_class=TasksInfoSerializer)
+    def my_tasks(self, request):
+        tasks = Task.objects.filter(owner=self.request.user)
+        return Response(TasksInfoSerializer(tasks, many=True).data)
+
+    def delete(self, request, *args, **kwargs):
         """TaskViewSet"""
         task = get_object_or_404(Task.objects.filter(pk=kwargs.get('pk')))
         task.delete()
