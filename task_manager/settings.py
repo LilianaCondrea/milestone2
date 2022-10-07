@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
+import environ
 
+env = environ.Env()
+environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -186,8 +189,8 @@ CORS_ALLOW_HEADERS = (
 )
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
-EMAIL_HOST_USER = 'condrealili12@gmail.com'
-EMAIL_HOST_PASSWORD = 'tqbjljzwyvqvtjee'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
