@@ -1,0 +1,6 @@
+dump.rdb
+task_manager/.env
+task_manager/.coveragerc
+db.sqlite3
+.coveragerc
+.coverage
