@@ -187,6 +187,7 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'token'
 )
+
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
