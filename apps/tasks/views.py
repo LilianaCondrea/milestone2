@@ -46,13 +46,6 @@ class TaskViewSet(ModelViewSet):
         tasks = Task.objects.filter(owner=self.request.user)
         return Response(TasksInfoSerializer(tasks, many=True).data)
 
-    def delete(self, request, *args, **kwargs):
-        """TaskViewSet"""
-        task = get_object_or_404(Task.objects.filter(pk=kwargs.get('pk')))
-        task.delete()
-        return Response({"success": True,
-                         "message": "task deleted successfully"})
-
     def list(self, request, *args, **kwargs):
         """TaskViewSet"""
         tasks = Task.objects.annotate(
