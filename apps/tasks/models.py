@@ -1,10 +1,8 @@
-"""Task  and Comment Model"""
 from django.db import models
 from ..users.models import User
 
 
 class Task(models.Model):
-    """Task Model"""
     title = models.CharField(db_index=True, max_length=100)
     description = models.TextField()
     status = models.BooleanField(db_index=True, default=False)
@@ -13,7 +11,6 @@ class Task(models.Model):
 
 
 class Comment(models.Model):
-    """Comment Model"""
     task = models.ForeignKey(Task, on_delete=models.CASCADE, db_index=True)
     text = models.TextField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')

@@ -21,7 +21,6 @@ from ..users.serializers import GetUsersSerializer
 
 
 class TaskViewSet(ModelViewSet):
-    """TaskViewSet"""
     queryset = Task.objects.annotate(
         work_time=Sum(F('timelog__end_timer') - F('timelog__start_timer'))
     )
@@ -32,13 +31,11 @@ class TaskViewSet(ModelViewSet):
     # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
     def get_serializer_class(self):
-        """TaskViewSet"""
         if self.action == 'create':
             return TaskCreateSerializer
         return super().get_serializer_class()
 
     def perform_create(self, serializer):
-        """TaskViewSet"""
         serializer.save(owner=self.request.user, status=False)
 
     @action(methods=['GET'], detail=False, serializer_class=TasksInfoSerializer)
@@ -47,7 +44,6 @@ class TaskViewSet(ModelViewSet):
         return Response(TasksInfoSerializer(tasks, many=True).data)
 
     def list(self, request, *args, **kwargs):
-        """TaskViewSet"""
         tasks = Task.objects.annotate(
             work_time=Sum(F('timelog__end_timer') - F('timelog__start_timer'))
         )
@@ -56,7 +52,6 @@ class TaskViewSet(ModelViewSet):
     @method_decorator(cache_page(60))
     @action(methods=['GET'], detail=False, serializer_class=TaskSerializer, url_path='top-20')
     def top_20(self, request):
-        """TaskViewSet"""
         tasks = Task.objects.filter(
             timelog__end_timer__gte=timezone.now() - datetime.timedelta(days=30)
         ).annotate(
@@ -67,7 +62,6 @@ class TaskViewSet(ModelViewSet):
     @action(methods=['PATCH'], detail=True, serializer_class=TaskUpdateSerializer,
             url_path="update-owner")
     def update_owner(self, request, pk):
-        """TaskViewSet"""
         task = get_object_or_404(Task.objects.filter(pk=pk))
         serializer = TaskUpdateSerializer(instance=task, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
@@ -83,7 +77,6 @@ class TaskViewSet(ModelViewSet):
     @action(methods=['PATCH'], detail=True, serializer_class=TaskUpdateStatusSerializer,
             url_path="update-status")
     def update_status(self, request, pk):
-        """TaskViewSet"""
         task = get_object_or_404(Task.objects.filter(pk=pk))
         serializer = TaskUpdateStatusSerializer(instance=task, data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -103,12 +96,10 @@ class TaskViewSet(ModelViewSet):
 
 
 class CommentsViewSet(ModelViewSet):
-    """CommentsViewSet"""
     queryset = Comment.objects.all()
     serializer_class = CommentsSerializer
 
     def create(self, request, *args, **kwargs):
-        """CommentsViewSet"""
         serializer = CommentsSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         validated_data = serializer.validated_data
@@ -126,17 +117,14 @@ class CommentsViewSet(ModelViewSet):
 
 
 class UserListView(GenericAPIView):
-    """UserListView"""
     serializer_class = GetUsersSerializer
 
     def get(self, request):
-        """UserListView"""
         users = User.objects.all()
         return Response(GetUsersSerializer(users, many=True).data)
 
 
 class TaskItemView(GenericAPIView):
-    """TaskItemView"""
     serializer_class = TaskItemSerializer
     queryset = Task.objects.all()
 
