@@ -1,4 +1,4 @@
-from apps.common.views import HealthView, ProtectedTestView
+from .views import HealthView, ProtectedTestView
 from django.urls import path
 
 urlpatterns = [
