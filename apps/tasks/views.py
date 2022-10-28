@@ -129,35 +129,29 @@ class TaskItemView(GenericAPIView):
     queryset = Task.objects.all()
 
     def get(self, request, pk):
-        """TaskItemView"""
         task = get_object_or_404(Task.objects.filter(pk=pk))
         return Response(TaskItemSerializer(task).data)
 
 
 class TaskItemLogsView(GenericAPIView):
-    """TaskItemLogsView"""
     serializer_class = TaskItemLogsSerializer
     queryset = Task.objects.all()
 
     def get(self, request, pk):
-        """TaskItemLogsView"""
         task = get_object_or_404(Task.objects.filter(pk=pk))
         return Response(TaskItemLogsSerializer(task).data)
 
 
 class TaskListViewWithWorktime(GenericAPIView):
-    """TaskListViewWithWorktime"""
     serializer_class = TaskItemLogsSerializer
     queryset = Task.objects.all()
 
     def get(self, request, pk):
-        """TaskListViewWithWorktime"""
         task = Task.objects.all()
         return Response(TaskItemLogsSerializer(task).data)
 
 
 class TaskSearchView(generics.ListAPIView):
-    """TaskSearchView-to search by title"""
     serializer_class = TaskSearchSerializer
     queryset = Task.objects.all()
     filter_backends = [filters.SearchFilter]
